@@ -1,7 +1,7 @@
 import XCTest
 
-import potatotips_tweetTests
+import PotatotipsTweetTests
 
 var tests = [XCTestCaseEntry]()
-tests += potatotips_tweetTests.allTests()
+tests += PotatotipsTweetTests.allTests()
 XCTMain(tests)
