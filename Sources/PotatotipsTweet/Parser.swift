@@ -41,7 +41,7 @@ extension Parser {
       self.title = Self.entryFromItems(items, index: 2)
       self.category = Self.entryFromItems(items, index: 3)
       self.twitterName = Self.parseTwitterName(Self.entryFromItems(items, index: 4))
-      self.document = Self.entryFromItems(items, index: 5)
+      self.document = Self.parseDocumentURL(Self.entryFromItems(items, index: 5))
     }
 
     private static func entryFromItems(_ items: [String], index: Int) -> String? {
@@ -56,7 +56,7 @@ extension Parser {
     }
 
     private static let regexForMarkdownLink: NSRegularExpression? = {
-      try? NSRegularExpression(pattern: "\\[@?([^]]+)\\]\\(.*\\)", options: [])
+      try? NSRegularExpression(pattern: "\\[@?([^]]+)\\]\\(([^)]*)\\)", options: [])
     }()
 
     private static func parseTwitterName(_ item: String?) -> String? {
@@ -75,6 +75,27 @@ extension Parser {
       }
 
       let range = result.range(at: 1)
+      let start = item.index(item.startIndex, offsetBy: range.location)
+      let end = item.index(start, offsetBy: range.length)
+      return String(item[start..<end])
+    }
+
+    private static func parseDocumentURL(_ item: String?) -> String? {
+      guard let item = item, !item.isEmpty else {
+        return nil
+      }
+
+      guard let regex = Self.regexForMarkdownLink else {
+        return item
+      }
+
+      guard
+        let result = regex.firstMatch(in: item, options: [], range: NSRange(0..<item.count))
+      else {
+        return item
+      }
+
+      let range = result.range(at: 2)
       let start = item.index(item.startIndex, offsetBy: range.location)
       let end = item.index(start, offsetBy: range.length)
       return String(item[start..<end])

@@ -36,4 +36,17 @@ final class PotatotipsTweetTests: XCTestCase {
     XCTAssertEqual(item.twitterName, "hogehoge")
     XCTAssertEqual(item.document, nil)
   }
+
+  func testItem2() throws {
+    let line =
+      "| kotaro.hashi （主催者枠） | はし | Flutter Add To ANDPAD App | Android | derahashi | [speaker deck](https://speakerdeck.com/hashi/flutter-add-to-andpad-app) |"
+    let item = Parser.Item(line)
+
+    XCTAssertEqual(item.name, "kotaro.hashi （主催者枠）")
+    XCTAssertEqual(item.pronunciation, "はし")
+    XCTAssertEqual(item.title, "Flutter Add To ANDPAD App")
+    XCTAssertEqual(item.category, "Android")
+    XCTAssertEqual(item.twitterName, "derahashi")
+    XCTAssertEqual(item.document, "https://speakerdeck.com/hashi/flutter-add-to-andpad-app")
+  }
 }
