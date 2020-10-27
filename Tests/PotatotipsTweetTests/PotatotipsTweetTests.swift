@@ -2,25 +2,38 @@ import PotatotipsTweet
 import XCTest
 
 final class PotatotipsTweetTests: XCTestCase {
-  func testSample() throws {
+  func testCount() throws {
     let sample = """
-      | daisuke0131（主催者枠） | daisuke0131 | ライブラリを作って5年たったので振り返る | iOS | [@daisuke0131](https://twitter.com/daisuke0131) | |
-      | kotaro.kudo（主催者枠） | くどう | Flutter Add To ANDPAD App | Android | derakudo | [speaker deck](https://speakerdeck.com/kudou/flutter-add-to-andpad-app) |
-      | fumiyasac | さかい | UIKitやSwiftUIで表現や動きが特徴的なUI実装事例を考察する | iOS | [@fumiyasac](https://twitter.com/fumiyasac) | [資料URL](https://www.slideshare.net/fumiyasakai37/uikitswiftuiui) |
-      | kuu | kuu | Gradle Plugin for Multi Module | Android | [@fumiya_kume](https://twitter.com/fumiya_kume) | [slide](https://speakerdeck.com/fumiyakume/gradle-plugin-for-multi-module) |
-      | Tamappe | たまっぺ | 商業雑誌に技術記事を寄稿した振り返り | iOS | [@tamapppe](https://twitter.com/tamapppe) | [speaker deck](https://speakerdeck.com/tamappe/shang-ye-za-zhi-niji-shu-ji-shi-woji-gao-sitazhen-rifan-ri) |
-      | androhi |アンドロヒ| Android Studio 4.1推しポイント！ | Android |[@androhi](https://twitter.com/androhi)| https://speakerdeck.com/androhi/android-studio-4-dot-1tui-sipointo |
-      | 417_72ki | (ご欠席） |(ご欠席） | iOS | | |
-      | SSK | エスエスケー | TwilioのVideoCapturerをカスタムした時に困った話 | Android | [@t_ssksan](https://twitter.com/t_ssksan) | |
-      | たなたつ | たなたつ | iOS 14からのアプリ内課金実装 | iOS | [@tanakasan2525](https://twitter.com/tanakasan2525) | [speaker deck](https://speakerdeck.com/tattn/ios-14karafalseapurinei-ke-jin) |
-      | Kenichi Kambara | カンバラ　ケンイチ| Flutterアプリ開発高速化Tips(コーディング編)| Android | [@korodroid](https://twitter.com/korodroid)| |
-      | yukiarrr | あらいかわ | GitHub ActionsでiOSビルドするActionを作って得たノウハウ | iOS | [@yukiarrr](https://twitter.com/yukiarrr) | [speaker deck](https://speakerdeck.com/yukiarrr/github-actionsdeiosbirudosuruactionwozuo-tutede-tafalseuhau) |
-      | なかしょ | なかしょ | WhiteSource Bolt for GitHubでShift LeftなAndroid開発を | Android | @nakasho_dev  | |
-      | aboy | あぼわい | Mixpanelのすゝめ | iOS | [@suxisuxido](https://twitter.com/suxisuxido) | |
+      | hogehoge（主催者枠） | hogehoge | ライブラリを作って5年たったので振り返る | iOS | [@hogehoge](https://twitter.com/hogehoge) | |
+      | kotaro.hashi（主催者枠） | はし | Flutter Add To ANDPAD App | Android | derahashi | [speaker deck](https://speakerdeck.com/hashi/flutter-add-to-andpad-app) |
+      | _momo | モモ | UIKitやSwiftUIで表現や動きが特徴的なUI実装事例を考察する | iOS | [@_momo](https://twitter.com/_momo) | [資料URL](https://www.slideshare.net/momo/uikitswiftuiui) |
+      | kitaro | kitaro | Gradle Plugin for Multi Module | Android | [@kita_ro](https://twitter.com/kita_ro) | [slide](https://speakerdeck.com/kitaro/gradle-plugin-for-multi-module) |
+      | Tamappe | タマゴロウ | 商業雑誌に技術記事を寄稿した振り返り | iOS | [@tamapppe](https://twitter.com/tamapppe) | [speaker deck](https://speakerdeck.com/tamappe/shang-ye-za-zhi-niji-shu-ji-shi-woji-gao-sitazhen-rifan-ri) |
+      | aroha |アロハ| Android Studio 4.1推しポイント！ | Android |[@aroha](https://twitter.com/aroha)| https://speakerdeck.com/aroha/android-studio-4-dot-1tui-sipointo |
+      | 417_88ab | (ご欠席） |(ご欠席） | iOS | | |
+      | SS|エスエス | TwilioのVideoCapturerをカスタムした時に困った話 | Android | [@t_ss](https://twitter.com/t_ss) | |
+      | やっさん | やっさん | iOS 14からのアプリ内課金実装 | iOS | [@yassan](https://twitter.com/yassan) | [speaker deck](https://speakerdeck.com/yassan/ios-14karafalseapurinei-ke-jin) |
+      | Roid Kanazawa | カナザワ　ロイド| Flutterアプリ開発高速化Tips(コーディング編)| Android | [@roidroid](https://twitter.com/roidroid)| |
+      | yutatokoro | ところ | GitHub ActionsでiOSビルドするActionを作って得たノウハウ | iOS | [@yutatokoro](https://twitter.com/yutatokoro) | [speaker deck](https://speakerdeck.com/yutatokoro/github-actionsdeiosbirudosuruactionwozuo-tutede-tafalseuhau) |
+      | しょじょじ | しょじょじ | WhiteSource Bolt for GitHubでShift LeftなAndroid開発を | Android | @shuhei_dev  | |
+      | superboy | スーパーボーイ | Mixpanelのすゝめ | iOS | [@superboy](https://twitter.com/superboy) | |
       """
 
     let items = Parser.parse(sample)
 
     XCTAssertEqual(items.count, 13)
+  }
+
+  func testItem1() throws {
+    let line =
+      "| hogehoge（主催者枠） | hogehoge | ライブラリを作って5年たったので振り返る | iOS | [@hogehoge](https://twitter.com/hogehoge) | |"
+    let item = Parser.Item(line)
+
+    XCTAssertEqual(item.name, "hogehoge（主催者枠）")
+    XCTAssertEqual(item.pronunciation, "hogehoge")
+    XCTAssertEqual(item.title, "ライブラリを作って5年たったので振り返る")
+    XCTAssertEqual(item.category, "iOS")
+    XCTAssertEqual(item.twitterName, "hogehoge")
+    XCTAssertEqual(item.document, nil)
   }
 }
