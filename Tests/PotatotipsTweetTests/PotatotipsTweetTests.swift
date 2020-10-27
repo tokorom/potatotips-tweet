@@ -49,4 +49,69 @@ final class PotatotipsTweetTests: XCTestCase {
     XCTAssertEqual(item.twitterName, "derahashi")
     XCTAssertEqual(item.document, "https://speakerdeck.com/hashi/flutter-add-to-andpad-app")
   }
+
+  func testItem3() throws {
+    let line =
+      " | _momo | モモ | UIKitやSwiftUIで表現や動きが特徴的なUI実装事例を考察する | iOS | [@_momo](https://twitter.com/_momo) | [資料URL](https://www.slideshare.net/momo/uikitswiftuiui) | "
+    let item = Parser.Item(line)
+
+    XCTAssertEqual(item.name, "_momo")
+    XCTAssertEqual(item.pronunciation, "モモ")
+    XCTAssertEqual(item.title, "UIKitやSwiftUIで表現や動きが特徴的なUI実装事例を考察する")
+    XCTAssertEqual(item.category, "iOS")
+    XCTAssertEqual(item.twitterName, "_momo")
+    XCTAssertEqual(item.document, "https://www.slideshare.net/momo/uikitswiftuiui")
+  }
+
+  func testItem4() throws {
+    let line =
+      "| aroha dayo |アロハ ダヨ| Android Studio 4.1推しポイント！ | Android |[@aroha](https://twitter.com/aroha)| https://speakerdeck.com/aroha/android-studio-4-dot-1tui-sipointo |"
+    let item = Parser.Item(line)
+
+    XCTAssertEqual(item.name, "aroha dayo")
+    XCTAssertEqual(item.pronunciation, "アロハ ダヨ")
+    XCTAssertEqual(item.title, "Android Studio 4.1推しポイント！")
+    XCTAssertEqual(item.category, "Android")
+    XCTAssertEqual(item.twitterName, "aroha")
+    XCTAssertEqual(
+      item.document, "https://speakerdeck.com/aroha/android-studio-4-dot-1tui-sipointo"
+    )
+  }
+
+  func testItem5() throws {
+    let line =
+      "| 417_88ab | (ご欠席） |(ご欠席） | | ||"
+    let item = Parser.Item(line)
+
+    XCTAssertEqual(item.name, "417_88ab")
+    XCTAssertEqual(item.pronunciation, "(ご欠席）")
+    XCTAssertEqual(item.title, "(ご欠席）")
+    XCTAssertEqual(item.category, nil)
+    XCTAssertEqual(item.twitterName, nil)
+    XCTAssertEqual(item.document, nil)
+  }
+
+  func testEmpty() throws {
+    let line = ""
+    let item = Parser.Item(line)
+
+    XCTAssertEqual(item.name, "ERROR")
+    XCTAssertEqual(item.pronunciation, nil)
+    XCTAssertEqual(item.title, nil)
+    XCTAssertEqual(item.category, nil)
+    XCTAssertEqual(item.twitterName, nil)
+    XCTAssertEqual(item.document, nil)
+  }
+
+  func testEmptyTable() throws {
+    let line = "|||||||"
+    let item = Parser.Item(line)
+
+    XCTAssertEqual(item.name, "ERROR")
+    XCTAssertEqual(item.pronunciation, nil)
+    XCTAssertEqual(item.title, nil)
+    XCTAssertEqual(item.category, nil)
+    XCTAssertEqual(item.twitterName, nil)
+    XCTAssertEqual(item.document, nil)
+  }
 }
