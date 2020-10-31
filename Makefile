@@ -4,6 +4,8 @@ build:
 	swift build
 run:
 	pbpaste | swift run
+run_and_pbcopy:
+	pbpaste | swift run | pbcopy
 test:
 	swift test 2>&1 | xcpretty
 watch:
