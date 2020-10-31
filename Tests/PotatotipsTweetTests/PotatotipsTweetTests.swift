@@ -12,8 +12,8 @@ final class PotatotipsTweetTests: XCTestCase {
       | aroha |アロハ| Android Studio 4.1推しポイント！ | Android |[@aroha](https://twitter.com/aroha)| https://speakerdeck.com/aroha/android-studio-4-dot-1tui-sipointo |
       | 417_88ab | (ご欠席） |(ご欠席） | iOS | | |
       | SS|エスエス | TwilioのVideoCapturerをカスタムした時に困った話 | Android | [@t_ss](https://twitter.com/t_ss) | |
-      | やっさん | やっさん | iOS 14からのアプリ内課金実装 | iOS | [@yassan](https://twitter.com/yassan) | [speaker deck](https://speakerdeck.com/yassan/ios-14karafalseapurinei-ke-jin) |
-      | Roid Kanazawa | カナザワ　ロイド| Flutterアプリ開発高速化Tips(コーディング編)| Android | [@roidroid](https://twitter.com/roidroid)| |
+      | やっさん |||||
+      | Roid Kanazawa | カナザワ　ロイド| Flutterアプリ開発高速化Tips(コーディング編)| Android | ||
       | yutatokoro | ところ | GitHub ActionsでiOSビルドするActionを作って得たノウハウ | iOS | [@yutatokoro](https://twitter.com/yutatokoro) | [speaker deck](https://speakerdeck.com/yutatokoro/github-actionsdeiosbirudosuruactionwozuo-tutede-tafalseuhau) |
       | しょじょじ | しょじょじ | WhiteSource Bolt for GitHubでShift LeftなAndroid開発を | Android | @shuhei_dev  | |
       | superboy | スーパーボーイ | Mixpanelのすゝめ | iOS | [@superboy](https://twitter.com/superboy) | |
@@ -22,6 +22,77 @@ final class PotatotipsTweetTests: XCTestCase {
     let items = Parser.parse(sample)
 
     XCTAssertEqual(items.count, 13)
+
+    guard items.count >= 13 else {
+      return
+    }
+
+    let item0 = items[0]
+    let item1 = items[1]
+    let item2 = items[2]
+    let item3 = items[3]
+    let item4 = items[4]
+    let item5 = items[5]
+    let item6 = items[6]
+    let item7 = items[7]
+    let item8 = items[8]
+    let item9 = items[9]
+    let item10 = items[10]
+    let item11 = items[11]
+    let item12 = items[12]
+
+    XCTAssertEqual(
+      item0,
+      "つぎは @hogehoge (hogehoge) さんで「ライブラリを作って5年たったので振り返る」 (iOS) #potatotips "
+    )
+    XCTAssertEqual(
+      item1,
+      "つぎは @derahashi (はし) さんで「Flutter Add To ANDPAD App」 (Android) #potatotips https://speakerdeck.com/hashi/flutter-add-to-andpad-app"
+    )
+    XCTAssertEqual(
+      item2,
+      "つぎは @_momo (モモ) さんで「UIKitやSwiftUIで表現や動きが特徴的なUI実装事例を考察する」 (iOS) #potatotips https://www.slideshare.net/momo/uikitswiftuiui"
+    )
+    XCTAssertEqual(
+      item3,
+      "つぎは @kita_ro (kitaro) さんで「Gradle Plugin for Multi Module」 (Android) #potatotips https://speakerdeck.com/kitaro/gradle-plugin-for-multi-module"
+    )
+    XCTAssertEqual(
+      item4,
+      "つぎは @tamapppe (タマゴロウ) さんで「商業雑誌に技術記事を寄稿した振り返り」 (iOS) #potatotips https://speakerdeck.com/tamappe/shang-ye-za-zhi-niji-shu-ji-shi-woji-gao-sitazhen-rifan-ri"
+    )
+    XCTAssertEqual(
+      item5,
+      "つぎは @aroha (アロハ) さんで「Android Studio 4.1推しポイント！」 (Android) #potatotips https://speakerdeck.com/aroha/android-studio-4-dot-1tui-sipointo"
+    )
+    XCTAssertEqual(
+      item6,
+      "つぎは 417_88ab ((ご欠席）) さんで「(ご欠席）」 (iOS) #potatotips "
+    )
+    XCTAssertEqual(
+      item7,
+      "つぎは @t_ss (エスエス) さんで「TwilioのVideoCapturerをカスタムした時に困った話」 (Android) #potatotips "
+    )
+    XCTAssertEqual(
+      item8,
+      "つぎは やっさん さんで「」 () #potatotips "
+    )
+    XCTAssertEqual(
+      item9,
+      "つぎは Roid Kanazawa (カナザワ　ロイド) さんで「Flutterアプリ開発高速化Tips(コーディング編)」 (Android) #potatotips "
+    )
+    XCTAssertEqual(
+      item10,
+      "つぎは @yutatokoro (ところ) さんで「GitHub ActionsでiOSビルドするActionを作って得たノウハウ」 (iOS) #potatotips https://speakerdeck.com/yutatokoro/github-actionsdeiosbirudosuruactionwozuo-tutede-tafalseuhau"
+    )
+    XCTAssertEqual(
+      item11,
+      "つぎは @shuhei_dev (しょじょじ) さんで「WhiteSource Bolt for GitHubでShift LeftなAndroid開発を」 (Android) #potatotips "
+    )
+    XCTAssertEqual(
+      item12,
+      "つぎは @superboy (スーパーボーイ) さんで「Mixpanelのすゝめ」 (iOS) #potatotips "
+    )
   }
 
   func testItem1() throws {

@@ -7,13 +7,14 @@
 import Foundation
 
 public final class Parser {
-  public class func parse(_ input: String) -> [Item] {
+  public class func parse(_ input: String) -> [String] {
     return
       input
       .split(whereSeparator: \.isNewline)
       .filter { !$0.isEmpty }
       .map { String($0) }
       .map { Item($0) }
+      .map(\.string)
   }
 }
 
@@ -44,6 +45,26 @@ extension Parser {
       self.document = Self.parseDocumentURL(Self.entryFromItems(items, index: 5))
     }
 
+    public var string: String {
+      "つぎは \(validName) さんで「\(title ?? "")」 (\(category ?? "")) #potatotips \(document ?? "")"
+    }
+
+    public var validName: String {
+      if let pronunciation = pronunciation {
+        return "\(nameOrTwitterName) (\(pronunciation))"
+      } else {
+        return nameOrTwitterName
+      }
+    }
+
+    public var nameOrTwitterName: String {
+      if let twitterName = twitterName {
+        return "@\(twitterName)"
+      } else {
+        return name
+      }
+    }
+
     private static func entryFromItems(_ items: [String], index: Int) -> String? {
       guard items.count > index else {
         return nil
@@ -64,14 +85,21 @@ extension Parser {
         return nil
       }
 
+      let validItem: String
+      if item.first == "@" {
+        validItem = String(item.suffix(from: item.index(after: item.startIndex)))
+      } else {
+        validItem = item
+      }
+
       guard let regex = Self.regexForMarkdownLink else {
-        return item
+        return validItem
       }
 
       guard
         let result = regex.firstMatch(in: item, options: [], range: NSRange(0..<item.count))
       else {
-        return item
+        return validItem
       }
 
       let range = result.range(at: 1)
